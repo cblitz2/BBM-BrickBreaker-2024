@@ -13,6 +13,7 @@ public class Panel {
     private int offsetX;
     private int offsetY;
     private boolean isDragging;
+
     public void movePanel() {
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override

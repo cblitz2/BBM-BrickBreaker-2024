@@ -8,7 +8,7 @@ public class Ball extends Ellipse2D.Double {
     private final int width;
     private final int height;
 
-    public Ball (int angle, int width, int height) {
+    public Ball(int angle, int width, int height) {
         this.angle = angle;
         this.width = width;
         this.height = height;

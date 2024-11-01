@@ -11,8 +11,7 @@ public class Brick {
             for (int j = 0; j < bricks[i].length; j++) {
                 if (rand.nextInt(0, 2) == 1) {
                     bricks[i][j] = 1;
-                }
-                else {
+                } else {
                     bricks[i][j] = 0;
                 }
             }
