@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameController {
+
+    // pass into frame width and height
+    // pass into brick width and height that is smaller than frame's
     private final Ball ball;
     private final Brick brick;
     private final Panel panel;
