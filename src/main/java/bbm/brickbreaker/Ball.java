@@ -45,7 +45,8 @@ public class Ball extends Ellipse2D.Double {
                     angle = (180 - angle) % 360;
             case TOP, BOTTOM ->
                     angle = (360 - angle) % 360;
-            default -> {}
+            default -> { }
+
         }
         return angle;
     }
