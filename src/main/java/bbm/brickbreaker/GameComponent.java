@@ -32,7 +32,7 @@ public class GameComponent extends JComponent {
         }
 
         g.setColor(Color.DARK_GRAY);
-        g.fillOval((int)ball.getX() - 10, (int)ball.getY()  - 10, 20, 20);
+        g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
 
         g.setColor(Color.BLUE);
