@@ -52,8 +52,6 @@ public class Ball extends Ellipse2D.Double {
         return angle;
     }
 
-
-
     public boolean inBounds(double x, double y) {
         return x < width && x > 0 && y < height && y > 0;
     }
@@ -61,6 +59,14 @@ public class Ball extends Ellipse2D.Double {
     public boolean hitsWall(double radius) {
         return (x - radius <= 0 || x + radius >= width
                 || y - radius <= 0 || y + radius >= height);
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 
 }
