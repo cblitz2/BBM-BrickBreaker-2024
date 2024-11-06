@@ -4,24 +4,39 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameComponent extends JComponent {
-    Brick brick;
+    private final Brick brick;
+    private final Ball ball;
+    private final Panel panel;
 
-    public GameComponent(Brick brick) {
+    public GameComponent(Brick brick, Ball ball, Panel panel) {
         this.brick = brick;
+        this.ball = ball;
+        this.panel = panel;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.RED);
-        for (int i = 0; i < brick.getWidth(); i++) {
-            for (int j = 0; j < brick.getHeight(); j++) {
+        for (int i = 0; i < brick.getCols(); i++) {
+            for (int j = 0; j < brick.getRows(); j++) {
                 if (brick.isBrick(i, j)) {
-                    g.fillRect(i, j, 25, 15);
+                    g.setColor(Color.RED);
+                    int xPos = i * brick.getWidth();
+                    int yPos = j * brick.getHeight();
+                    g.fillRect(xPos, yPos, brick.getWidth(), brick.getHeight());
+
+                    g.setColor(Color.BLACK);
+                    g.drawRect(xPos, yPos, brick.getWidth(), brick.getHeight());
                 }
             }
         }
-        //g.setColor(Color.BLUE);
-       // g.fillRect(getWidth() / 2 - 15, getHeight() - 30, 40, 10);
+
+        g.setColor(Color.DARK_GRAY);
+        g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
+
+
+        g.setColor(Color.BLUE);
+        g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
+
     }
 }
