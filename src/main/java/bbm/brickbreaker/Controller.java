@@ -7,13 +7,9 @@ import java.awt.*;
 import static bbm.brickbreaker.Bounds.*;
 
 public class Controller {
-
-    // pass into frame width and height
-    // pass into brick width and height that is smaller than frame's
     private final Ball ball;
     private final Brick brick;
     private final Panel panel;
-//    private final Panel panel;
     private GameComponent view;
 
     private int radius;
@@ -26,44 +22,35 @@ public class Controller {
         this.panel = panel;
         this.radius = radius;
         this.view = view;
-
-        // do we want the gameWidth and gameHeight
-
     }
 
     public void play() {
-        timer = new Timer(1000 / 60, e -> { // Adjust for smoother movement
+        timer = new Timer(1000 / 60, e -> {
             double newX = ball.locationX();
             double newY = ball.locationY();
 
-            ball.setPosition(newX, newY); // Update ball position
+            ball.setPosition(newX, newY);
             view.repaint();
 
-            // Determine which wall the ball hits
-            Bounds hitDirection = NONE; // 0 means no hit
+            Bounds hitDirection = NONE;
 
-            if (ball.hitsWall(radius)) { // Check if ball hits any wall
-                if (newX - radius <= 0) { // Left wall
+            if (ball.hitsWall(radius)) {
+                if (newX - radius <= 0) {
                     hitDirection = LEFT;
-                } else if (newX + radius >= ball.getWidth()) { // Right wall
+                } else if (newX + radius >= ball.getWidth()) {
                     hitDirection = RIGHT;
-                } else if (newY - radius <= 0) { // Top wall
+                } else if (newY - radius <= 0) {
                     hitDirection = TOP;
-                } else if (newY + radius >= ball.getHeight()) { // Bottom wall
-                   // hitDirection = BOTTOM;
+                } else if (newY + radius >= ball.getHeight()) {
                     timer.stop();
                 }
 
                 if (hitDirection != NONE) {
-                    ball.bounce(hitDirection); // Bounce the ball
+                    ball.bounce(hitDirection);
                 }
             }
 
             checkPanelCollision();
-
-//            if (!ball.inBounds(newX, newY)) {
-//                timer.stop(); // Stop timer if ball goes out of bounds
-//            }
         });
 
         timer.start();
@@ -72,7 +59,7 @@ public class Controller {
     private void breakBricks(int x, int y) {
         if (brick.isBrick(x, y)) {
             brick.hitBrick(x, y);
-            ball.bounce(Bounds.TOP); // Example bounce direction
+            ball.bounce(Bounds.TOP);
         }
     }
 
@@ -81,8 +68,7 @@ public class Controller {
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(), radius * 2, radius * 2);
 
         if (panelBounds.intersects(ballBounds)) {
-            ball.bounce(Bounds.TOP); // Example bounce direction, adjust based on angle needed
-//            ball.setPosition(ball.getX(), panel.getY() - radius);
+            ball.bounce(Bounds.TOP);
         }
     }
 }
