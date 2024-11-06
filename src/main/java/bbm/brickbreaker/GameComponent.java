@@ -4,11 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameComponent extends JComponent {
-    private final Brick brick;
+    private final Bricks brick;
     private final Ball ball;
     private final Panel panel;
 
-    public GameComponent(Brick brick, Ball ball, Panel panel) {
+    public GameComponent(Bricks brick, Ball ball, Panel panel) {
         this.brick = brick;
         this.ball = ball;
         this.panel = panel;

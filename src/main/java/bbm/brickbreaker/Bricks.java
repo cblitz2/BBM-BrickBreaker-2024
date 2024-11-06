@@ -3,7 +3,7 @@ package bbm.brickbreaker;
 import java.awt.*;
 import java.util.Random;
 
-public class Brick extends Rectangle {
+public class Bricks extends Rectangle {
     private final Random rand = new Random();
     private final int width;
     private final int height;
@@ -12,7 +12,7 @@ public class Brick extends Rectangle {
     private static final int NUM_BRICKS = 20;
     private final int [][] bricks;
 
-    public Brick(int width, int height) {
+    public Bricks(int width, int height) {
         this.width = width;
         this.height = height;
         this.bricks = new int[width][height];
