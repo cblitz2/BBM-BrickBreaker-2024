@@ -1,12 +1,11 @@
 package bbm.brickbreaker;
 
 import javax.swing.*;
-        import java.awt.*;
+import java.awt.*;
 
 public class GameComponent extends JComponent {
     private final Brick brick;
     private final Ball ball;
-
     private final Panel panel;
 
     public GameComponent(Brick brick, Ball ball, Panel panel) {
@@ -33,7 +32,7 @@ public class GameComponent extends JComponent {
         }
 
         g.setColor(Color.DARK_GRAY);
-        g.fillOval((int)ball.getX() - 10, (int)ball.getY()  - 10, 20, 20); // Draw ball at its current position
+        g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
         g.setColor(Color.BLUE);
         g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
