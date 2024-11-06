@@ -7,7 +7,7 @@ public class Panel {
     private final int width = 100;
     private final int height = 20;
 
-    public Panel (int startX, int startY) {
+    public Panel(int startX, int startY) {
         this.x = startX;
         this.y = startY;
     }

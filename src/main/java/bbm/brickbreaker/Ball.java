@@ -42,11 +42,10 @@ public class Ball extends Ellipse2D.Double {
     public int bounce(Bounds direction) {
         switch (direction) {
             case LEFT, RIGHT ->
-                // Reverse the angle horizontally
                     angle = (180 - angle) % 360;
             case TOP, BOTTOM ->
-                // Reverse the angle vertically
                     angle = (360 - angle) % 360;
+            default -> NONE
         }
         return angle;
     }
@@ -57,8 +56,8 @@ public class Ball extends Ellipse2D.Double {
     }
 
     public boolean hitsWall(double radius) {
-        return (x - radius <= 0 || x + radius >= width ||
-                y - radius <= 0 || y + radius >= height);
+        return (x - radius <= 0 || x + radius >= width
+                || y - radius <= 0 || y + radius >= height);
     }
 
 }
