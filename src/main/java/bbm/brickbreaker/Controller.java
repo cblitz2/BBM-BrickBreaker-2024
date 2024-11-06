@@ -1,9 +1,7 @@
 package bbm.brickbreaker;
 
 import javax.swing.Timer;
-
 import java.awt.*;
-
 import static bbm.brickbreaker.Bounds.*;
 
 public class Controller {
@@ -25,6 +23,7 @@ public class Controller {
     }
 
     public void play() {
+
         timer = new Timer(1000 / 60, e -> {
             double newX = ball.locationX();
             double newY = ball.locationY();
@@ -51,17 +50,37 @@ public class Controller {
             }
 
             checkPanelCollision();
+            breakBricks();
         });
 
         timer.start();
     }
 
-    private void breakBricks(int x, int y) {
-        if (brick.isBrick(x, y)) {
-            brick.hitBrick(x, y);
-            ball.bounce(Bounds.TOP);
+    private void breakBricks() {
+        int ballCenterX = (int) ball.getX();
+        int ballCenterY = (int) ball.getY();
+
+        // Check each brick position
+        for (int i = 0; i < brick.getCols(); i++) {
+            for (int j = 0; j < brick.getRows(); j++) {
+                if (brick.isBrick(i, j)) {
+                    int brickX = i * 30;
+                    int brickY = j * 18;
+
+                    if (ballCenterX >= brickX && ballCenterX <= brickX + 30 &&
+                            ballCenterY >= brickY && ballCenterY <= brickY + 18) {
+
+                        brick.hitBrick(i, j);
+
+                        ball.bounce(Bounds.TOP);
+
+                        view.repaint();
+                    }
+                }
+            }
         }
     }
+
 
     private void checkPanelCollision() {
         Rectangle panelBounds = new Rectangle(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight());
@@ -71,4 +90,6 @@ public class Controller {
             ball.bounce(Bounds.TOP);
         }
     }
+
+
 }
