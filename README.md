@@ -5,4 +5,4 @@ bricks on the screen. The objective is to
 clear all the bricks without letting the 
 ball fall past the paddle.
 
-![BrickBreaker](BrickBreakerGIF.gif)
+![BrickBreaker](GifBrickBreaker.gif)
