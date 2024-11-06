@@ -10,10 +10,12 @@ public class Ball extends Ellipse2D.Double {
     private double x;
     private double y;
 
-    public Ball(int angle, int width, int height) {
+    public Ball(int angle, int width, int height, double x, double y) {
         this.angle = angle;
         this.width = width;
         this.height = height;
+        this.x = x;
+        this.y = y;
     }
 
     public void setPosition(double newX, double newY) {
@@ -37,28 +39,21 @@ public class Ball extends Ellipse2D.Double {
         return getY() + Math.sin(Math.toRadians(angle)) * VELOCITY;
     }
 
+
+
     public int bounce(Bounds direction) {
         switch (direction) {
-            case LEFT, RIGHT -> {
-                angle = (180 - angle) % 360;
-            }
-            case TOP, BOTTOM -> {
-                angle = (360 - angle) % 360;
-            }
-            default -> {
-                angle = NONE;
-            }
+            case LEFT, RIGHT ->
+                    angle = (180 - angle) % 360;
+            case TOP, BOTTOM ->
+                    angle = (360 - angle) % 360;
         }
         return angle;
     }
 
-    public boolean inBounds(double x, double y) {
-        return x < width && x > 0 && y < height && y > 0;
-    }
-
     public boolean hitsWall(double radius) {
-        return (x - radius <= 0 || x + radius >= width
-                || y - radius <= 0 || y + radius >= height);
+        return (x - radius <= 0 || x + radius >= width ||
+                y - radius <= 0 || y + radius >= height);
     }
 
     public double getWidth() {
