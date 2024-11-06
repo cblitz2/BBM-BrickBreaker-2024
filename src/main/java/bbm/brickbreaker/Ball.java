@@ -39,14 +39,19 @@ public class Ball extends Ellipse2D.Double {
 
     public int bounce(Bounds direction) {
         switch (direction) {
-            case LEFT, RIGHT ->
-                    angle = (180 - angle) % 360;
-            case TOP, BOTTOM ->
-                    angle = (360 - angle) % 360;
-            default -> NONE
+            case LEFT, RIGHT -> {
+                angle = (180 - angle) % 360;
+            }
+            case TOP, BOTTOM -> {
+                angle = (360 - angle) % 360;
+            }
+            default -> {
+                angle = NONE;
+            }
         }
         return angle;
     }
+
 
 
     public boolean inBounds(double x, double y) {
