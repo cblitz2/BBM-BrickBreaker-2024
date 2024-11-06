@@ -60,15 +60,14 @@ public class Controller {
         int ballCenterX = (int) ball.getX();
         int ballCenterY = (int) ball.getY();
 
-        // Check each brick position
         for (int i = 0; i < brick.getCols(); i++) {
             for (int j = 0; j < brick.getRows(); j++) {
                 if (brick.isBrick(i, j)) {
                     int brickX = i * 30;
                     int brickY = j * 18;
 
-                    if (ballCenterX >= brickX && ballCenterX <= brickX + 30 &&
-                            ballCenterY >= brickY && ballCenterY <= brickY + 18) {
+                    if (ballCenterX >= brickX && ballCenterX <= brickX + 30
+                            && ballCenterY >= brickY && ballCenterY <= brickY + 18) {
 
                         brick.hitBrick(i, j);
 
@@ -81,7 +80,6 @@ public class Controller {
         }
     }
 
-
     private void checkPanelCollision() {
         Rectangle panelBounds = new Rectangle(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(), radius * 2, radius * 2);
@@ -90,6 +88,4 @@ public class Controller {
             ball.bounce(Bounds.TOP);
         }
     }
-
-
 }
