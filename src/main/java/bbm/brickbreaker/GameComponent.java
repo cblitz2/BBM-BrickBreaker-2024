@@ -36,5 +36,6 @@ public class GameComponent extends JComponent {
 
         g.setColor(Color.BLUE);
         g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
+
     }
 }

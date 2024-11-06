@@ -3,7 +3,7 @@ package bbm.brickbreaker;
 import java.awt.geom.Ellipse2D;
 
 public class Ball extends Ellipse2D.Double {
-    private static final int VELOCITY = 20;
+    private static final int VELOCITY = 15;
     private int angle;
     private final int width;
     private final int height;

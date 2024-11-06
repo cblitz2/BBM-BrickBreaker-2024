@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
         setLayout(null);
 
         Panel panel = new Panel(350, 520);
-        Ball ball = new Ball(45, 800, 600, panel.getX() + 40, panel.getY() - 20);
+        Ball ball = new Ball(45, 800, 600, panel.getX() + 48, panel.getY() - 20);
         Bricks brick = new Bricks(30, 18);
         brick.populateBricks();
 
