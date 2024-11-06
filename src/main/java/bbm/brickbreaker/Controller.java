@@ -6,7 +6,7 @@ import static bbm.brickbreaker.Bounds.*;
 
 public class Controller {
     private final Ball ball;
-    private final Brick brick;
+    private final Bricks brick;
     private final Panel panel;
     private GameComponent view;
 
@@ -14,7 +14,7 @@ public class Controller {
 
     private Timer timer;
 
-    public Controller(Ball ball, Brick brick, int radius, Panel panel, GameComponent view) {
+    public Controller(Ball ball, Bricks brick, int radius, Panel panel, GameComponent view) {
         this.ball = ball;
         this.brick = brick;
         this.panel = panel;
