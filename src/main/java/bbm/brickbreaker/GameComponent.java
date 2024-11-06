@@ -21,12 +21,12 @@ public class GameComponent extends JComponent {
             for (int j = 0; j < brick.getRows(); j++) {
                 if (brick.isBrick(i, j)) {
                     g.setColor(Color.RED);
-                    int xPos = i * brick.getWidth();
-                    int yPos = j * brick.getHeight();
-                    g.fillRect(xPos, yPos, brick.getWidth(), brick.getHeight());
+                    int xPos = i * 30;
+                    int yPos = j * 18;
+                    g.fillRect(xPos, yPos, 30, 18);
 
                     g.setColor(Color.BLACK);
-                    g.drawRect(xPos, yPos, brick.getWidth(), brick.getHeight());
+                    g.drawRect(xPos, yPos, 30, 18);
                 }
             }
         }
@@ -34,9 +34,7 @@ public class GameComponent extends JComponent {
         g.setColor(Color.DARK_GRAY);
         g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
-
         g.setColor(Color.BLUE);
         g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
-
     }
 }
