@@ -1,24 +1,39 @@
 package bbm.brickbreaker;
 
+import java.awt.*;
 import java.util.Random;
 
-public class Brick {
-    Random rand = new Random();
-    int [][] bricks = new int[8][5];
+public class Brick extends Rectangle {
+    private final Random rand = new Random();
+    private final int width;
+    private final int height;
+    private static final int NUM_BRICKS = 20;
+    private final int [][] bricks;
+    public Brick(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.bricks = new int[width][height];
+    }
 
     public void populateBricks() {
-        for (int i = 0; i < bricks.length; i++) {
-            for (int j = 0; j < bricks[i].length; j++) {
-                if (rand.nextInt(0, 2) == 1) {
-                    bricks[i][j] = 1;
-                } else {
-                    bricks[i][j] = 0;
-                }
+        int placedBricks = 0;
+
+        while (placedBricks < NUM_BRICKS) {
+            int x = rand.nextInt(width);
+            int y = rand.nextInt(height);
+
+            if (bricks[x][y] == 0) {
+                bricks[x][y] = 1;
+                placedBricks++;
             }
         }
     }
 
     public void hitBrick(int x, int y) {
         bricks[x][y] = 0;
+    }
+
+    public boolean isBrick(int x, int y) {
+        return bricks[x][y] == 1;
     }
 }
