@@ -3,7 +3,6 @@ package bbm.brickbreaker;
 public class Panel {
     private int x;
     private int y;
-
     private final int width = 100;
     private final int height = 20;
 

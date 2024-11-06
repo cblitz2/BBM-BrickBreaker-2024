@@ -9,6 +9,7 @@ public class Brick extends Rectangle {
     private final int height;
     private static final int NUM_BRICKS = 20;
     private final int [][] bricks;
+
     public Brick(int width, int height) {
         this.width = width;
         this.height = height;

@@ -37,8 +37,6 @@ public class Ball extends Ellipse2D.Double {
         return getY() + Math.sin(Math.toRadians(angle)) * VELOCITY;
     }
 
-
-
     public int bounce(Bounds direction) {
         switch (direction) {
             case LEFT, RIGHT ->
