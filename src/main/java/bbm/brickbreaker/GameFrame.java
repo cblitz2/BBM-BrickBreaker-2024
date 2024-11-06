@@ -23,8 +23,6 @@ public class GameFrame extends JFrame {
         component.setBounds(0, 0, 800, 600);
         add(component);
 
-        Controller controller = new Controller(ball, brick, 10, panel, component);
-
         JLabel bar = new JLabel();
         bar.setOpaque(true);
         bar.setBackground(Color.BLUE);
@@ -33,6 +31,8 @@ public class GameFrame extends JFrame {
 
         int[] offsetX = {0};
         int[] offsetY = {0};
+
+        Controller controller = new Controller(ball, brick, 10, panel, component);
 
         bar.addMouseListener(new MouseAdapter() {
             @Override
