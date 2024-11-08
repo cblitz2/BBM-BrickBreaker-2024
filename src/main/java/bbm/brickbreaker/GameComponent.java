@@ -2,32 +2,29 @@ package bbm.brickbreaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class GameComponent extends JComponent {
-    private final Bricks brick;
+    private final List<Brick> bricks;
     private final Ball ball;
-    private final Panel panel;
+    private final Paddle paddle;
 
-    public GameComponent(Bricks brick, Ball ball, Panel panel) {
-        this.brick = brick;
+    public GameComponent(List<Brick> bricks, Ball ball, Paddle paddle) {
+        this.bricks = bricks;
         this.ball = ball;
-        this.panel = panel;
+        this.paddle = paddle;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < brick.getCols(); i++) {
-            for (int j = 0; j < brick.getRows(); j++) {
-                if (brick.isBrick(i, j)) {
-                    g.setColor(Color.RED);
-                    int xPos = i * 30;
-                    int yPos = j * 18;
-                    g.fillRect(xPos, yPos, 30, 18);
+        for (Brick brick : bricks) {
+            if (!brick.isHit()) { // Only draw bricks that haven't been hit
+                g.setColor(Color.RED); // Color the brick
+                g.fillRect(brick.x, brick.y, brick.width, brick.height); // Draw the filled brick
 
-                    g.setColor(Color.BLACK);
-                    g.drawRect(xPos, yPos, 30, 18);
-                }
+                g.setColor(Color.BLACK); // Border color for the brick
+                g.drawRect(brick.x, brick.y, brick.width, brick.height); // Draw the brick border
             }
         }
 
@@ -35,6 +32,6 @@ public class GameComponent extends JComponent {
         g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
         g.setColor(Color.BLUE);
-        g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
+        g.fillRect(paddle.getX(),  paddle.getY(), paddle.getWidth(), paddle.getHeight());
     }
 }
