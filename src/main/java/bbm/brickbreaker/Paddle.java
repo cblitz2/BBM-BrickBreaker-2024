@@ -1,12 +1,12 @@
 package bbm.brickbreaker;
 
-public class Panel {
+public class Paddle {
     private int x;
     private int y;
     private final int width = 100;
     private final int height = 20;
 
-    public Panel(int startX, int startY) {
+    public Paddle(int startX, int startY) {
         this.x = startX;
         this.y = startY;
     }
