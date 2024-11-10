@@ -49,6 +49,8 @@ public class GameFrame extends JFrame {
                     case KeyEvent.VK_RIGHT:
                         bar.setLocation(bar.getX() + 30, bar.getY());
                         break;
+                    default:
+                        break;
                 }
                 paddle.setLocation(bar.getX(), bar.getY());
                 component.repaint();
