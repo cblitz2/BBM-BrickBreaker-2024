@@ -13,7 +13,6 @@ public class Controller {
     private final int radius;
     private Timer timer;
 
-
     public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
         this.ball = ball;
         this.bricks = bricks;
@@ -77,10 +76,10 @@ public class Controller {
                 radius * 2, radius * 2);
 
         if (paddleBounds.intersects(ballBounds)) {
-            int sectionWidth = (int) paddle.getWidth() / 5;
-            int section = ((int) ball.getX() - (int) paddle.getX()) / sectionWidth;
+            double sectionWidth = paddle.getWidth() / 5;
+            double section = (ball.getX() - paddle.getX()) / sectionWidth;
 
-            switch (section) {
+            switch ((int) section) {
                 case 0:
                     ball.bouncePaddle(LEFT_EDGE);
                     break;
