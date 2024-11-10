@@ -41,7 +41,7 @@ public class Ball extends Ellipse2D.Double {
                     angle = 315;
             case RIGHT ->
                     angle = 225;
-            case LEFT_EDGE->
+            case LEFT_EDGE ->
                     angle = 200;
             case RIGHT_EDGE ->
                     angle = 340;

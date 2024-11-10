@@ -96,6 +96,8 @@ public class Controller {
                 case 4:
                     ball.bouncePaddle(RIGHT_EDGE);
                     break;
+                default:
+                    break;
             }
         }
     }
