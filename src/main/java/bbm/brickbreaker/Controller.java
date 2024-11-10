@@ -58,18 +58,16 @@ public class Controller {
     }
 
     private void breakBricks() {
-        // Get the ball's bounding box (its full hit area)
         Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
                 (int) ball.getY() - radius,
                 radius * 2, radius * 2);
 
-        // Iterate through all bricks
         for (Brick brick : bricks) {
             if (!brick.isHit() && brick.getBounds().intersects(ballBounds)) {
-                brick.setHit(true); // Mark the brick as hit
-                ball.bounce(Bounds.TOP); // Ball bounces off the brick (you can adjust the bounce direction based on the brick's location)
-                view.repaint(); // Update the view
-                break; // Only break one brick per frame
+                brick.setHit(true);
+                ball.bounce(Bounds.TOP);
+                view.repaint();
+                break;
             }
         }
     }

@@ -38,42 +38,20 @@ public class GameFrame extends JFrame {
             }
         });
 
-//        addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                int keyCode = e.getKeyCode();
-//                switch (keyCode) {
-//                    case KeyEvent.VK_LEFT:
-//                        bar.setLocation(bar.getX() - 20, bar.getY());
-//                        break;
-//                    case KeyEvent.VK_RIGHT:
-//                        bar.setLocation(bar.getX() + 20, bar.getY());
-//                        break;
-//                }
-//                paddle.setLocation(bar.getX(), bar.getY());
-//                component.repaint();
-//            }
-//        });
-
-
-        int[] offsetX = {0};
-        int[] offsetY = {0};
-
-        bar.addMouseListener(new MouseAdapter() {
+        addKeyListener(new KeyAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                offsetX[0] = e.getX();
-                offsetY[0] = e.getY();
-            }
-        });
-
-        bar.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int newX = e.getXOnScreen() - offsetX[0];
-                int newY = bar.getY();
-                bar.setLocation(newX, newY);
-                paddle.setLocation(newX, newY);
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                switch (keyCode) {
+                    case KeyEvent.VK_LEFT:
+                        bar.setLocation(bar.getX() - 30, bar.getY());
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        bar.setLocation(bar.getX() + 30, bar.getY());
+                        break;
+                }
+                paddle.setLocation(bar.getX(), bar.getY());
+                component.repaint();
             }
         });
 
