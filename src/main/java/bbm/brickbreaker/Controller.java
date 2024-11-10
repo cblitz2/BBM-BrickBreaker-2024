@@ -2,21 +2,21 @@ package bbm.brickbreaker;
 
 import javax.swing.Timer;
 import java.awt.*;
-
+import java.util.List;
 import static bbm.brickbreaker.Bounds.*;
 
 public class Controller {
     private final Ball ball;
-    private final Bricks brick;
+    private final List<Brick> bricks;
     private final Paddle paddle;
     private final GameComponent view;
     private final int radius;
-
     private Timer timer;
 
-    public Controller(Ball ball, Bricks brick, int radius, Paddle paddle, GameComponent view) {
+
+    public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
         this.ball = ball;
-        this.brick = brick;
+        this.bricks = bricks;
         this.paddle = paddle;
         this.radius = radius;
         this.view = view;
@@ -57,25 +57,15 @@ public class Controller {
     }
 
     private void breakBricks() {
-        int ballCenterX = (int) ball.getX();
-        int ballCenterY = (int) ball.getY();
-
-        for (int i = 0; i < brick.getCols(); i++) {
-            for (int j = 0; j < brick.getRows(); j++) {
-                if (brick.isBrick(i, j)) {
-                    int brickX = i * 30;
-                    int brickY = j * 18;
-
-                    if (ballCenterX >= brickX && ballCenterX <= brickX + 30
-                            && ballCenterY >= brickY && ballCenterY <= brickY + 18) {
-
-                        brick.hitBrick(i, j);
-
-                        ball.bounceWalls(TOP);
-
-                        view.repaint();
-                    }
-                }
+        Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
+                (int) ball.getY() - radius,
+                radius * 2, radius * 2);
+        for (Brick brick : bricks) {
+            if (!brick.isHit() && brick.getBounds().intersects(ballBounds)) {
+                brick.setHit(true);
+                ball.bounceWalls(Bounds.TOP);
+                view.repaint();
+                break;
             }
         }
     }
@@ -85,7 +75,6 @@ public class Controller {
                 (int) paddle.getWidth(), (int) paddle.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
                 radius * 2, radius * 2);
-
 
         if (paddleBounds.intersects(ballBounds)) {
             int sectionWidth = (int) paddle.getWidth() / 5;
