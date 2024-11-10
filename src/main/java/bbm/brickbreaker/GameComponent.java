@@ -19,12 +19,12 @@ public class GameComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (Brick brick : bricks) {
-            if (!brick.isHit()) { // Only draw bricks that haven't been hit
-                g.setColor(Color.RED); // Color the brick
-                g.fillRect(brick.x, brick.y, brick.width, brick.height); // Draw the filled brick
+            if (!brick.isHit()) {
+                g.setColor(Color.RED);
+                g.fillRect(brick.x, brick.y, brick.width, brick.height);
 
-                g.setColor(Color.BLACK); // Border color for the brick
-                g.drawRect(brick.x, brick.y, brick.width, brick.height); // Draw the brick border
+                g.setColor(Color.BLACK);
+                g.drawRect(brick.x, brick.y, brick.width, brick.height);
             }
         }
 
