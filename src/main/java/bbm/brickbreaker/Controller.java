@@ -2,22 +2,22 @@ package bbm.brickbreaker;
 
 import javax.swing.Timer;
 import java.awt.*;
+
 import static bbm.brickbreaker.Bounds.*;
 
 public class Controller {
     private final Ball ball;
     private final Bricks brick;
-    private final Panel panel;
-    private GameComponent view;
-
-    private int radius;
+    private final Paddle paddle;
+    private final GameComponent view;
+    private final int radius;
 
     private Timer timer;
 
-    public Controller(Ball ball, Bricks brick, int radius, Panel panel, GameComponent view) {
+    public Controller(Ball ball, Bricks brick, int radius, Paddle paddle, GameComponent view) {
         this.ball = ball;
         this.brick = brick;
-        this.panel = panel;
+        this.paddle = paddle;
         this.radius = radius;
         this.view = view;
     }
@@ -40,16 +40,16 @@ public class Controller {
                     hitDirection = RIGHT;
                 } else if (newY - radius <= 0) {
                     hitDirection = TOP;
-                } else if (newY + radius >= ball.getHeight()) {
+                } else if (newY + radius > ball.getHeight()) {
                     timer.stop();
                 }
 
                 if (hitDirection != NONE) {
-                    ball.bounce(hitDirection);
+                    ball.bounceWalls(hitDirection);
                 }
             }
 
-            checkPanelCollision();
+            checkPaddleCollision();
             breakBricks();
         });
 
@@ -71,7 +71,7 @@ public class Controller {
 
                         brick.hitBrick(i, j);
 
-                        ball.bounce(Bounds.TOP);
+                        ball.bounceWalls(TOP);
 
                         view.repaint();
                     }
@@ -80,12 +80,34 @@ public class Controller {
         }
     }
 
-    private void checkPanelCollision() {
-        Rectangle panelBounds = new Rectangle(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight());
-        Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(), radius * 2, radius * 2);
+    private void checkPaddleCollision() {
+        Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
+                (int) paddle.getWidth(), (int) paddle.getHeight());
+        Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
+                radius * 2, radius * 2);
 
-        if (panelBounds.intersects(ballBounds)) {
-            ball.bounce(Bounds.TOP);
+
+        if (paddleBounds.intersects(ballBounds)) {
+            int sectionWidth = (int) paddle.getWidth() / 5;
+            int section = ((int) ball.getX() - (int) paddle.getX()) / sectionWidth;
+
+            switch (section) {
+                case 0:
+                    ball.bouncePaddle(LEFT_EDGE);
+                    break;
+                case 1:
+                    ball.bouncePaddle(LEFT);
+                    break;
+                case 2:
+                    ball.bouncePaddle(MIDDLE);
+                    break;
+                case 3:
+                    ball.bouncePaddle(RIGHT);
+                    break;
+                case 4:
+                    ball.bouncePaddle(RIGHT_EDGE);
+                    break;
+            }
         }
     }
 }

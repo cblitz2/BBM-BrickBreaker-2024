@@ -6,12 +6,12 @@ import java.awt.*;
 public class GameComponent extends JComponent {
     private final Bricks brick;
     private final Ball ball;
-    private final Panel panel;
+    private final Paddle paddle;
 
-    public GameComponent(Bricks brick, Ball ball, Panel panel) {
+    public GameComponent(Bricks brick, Ball ball, Paddle paddle) {
         this.brick = brick;
         this.ball = ball;
-        this.panel = panel;
+        this.paddle = paddle;
     }
 
     @Override
@@ -35,6 +35,6 @@ public class GameComponent extends JComponent {
         g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
         g.setColor(Color.BLUE);
-        g.fillRect(panel.getX(),  panel.getY(), panel.getWidth(), panel.getHeight());
+        g.fillRect((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
     }
 }

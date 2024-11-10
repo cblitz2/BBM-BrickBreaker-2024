@@ -14,25 +14,26 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Panel panel = new Panel(350, 520);
-        Ball ball = new Ball(45, 800, 600, panel.getX() + 40, panel.getY() - 20);
+//        Paddle paddle = new Paddle(350, 520);
+        Paddle paddle = new Paddle(350, 520, 100, 20);
+        Ball ball = new Ball(45, 800, 600, paddle.getX() + 40, paddle.getY() - 20);
         Bricks brick = new Bricks(30, 18);
         brick.populateBricks();
 
-        GameComponent component = new GameComponent(brick, ball, panel);
+        GameComponent component = new GameComponent(brick, ball, paddle);
         component.setBounds(0, 0, 800, 600);
         add(component);
 
         JLabel bar = new JLabel();
         bar.setOpaque(true);
         bar.setBackground(Color.BLUE);
-        bar.setBounds(panel.getX(), panel.getY(), panel.getWidth(), panel.getHeight());
+        bar.setBounds((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
         add(bar);
 
         int[] offsetX = {0};
         int[] offsetY = {0};
 
-        Controller controller = new Controller(ball, brick, 10, panel, component);
+        Controller controller = new Controller(ball, brick, 10, paddle, component);
 
         bar.addMouseListener(new MouseAdapter() {
             @Override
@@ -55,7 +56,7 @@ public class GameFrame extends JFrame {
                 int newX = e.getXOnScreen() - offsetX[0];
                 int newY = bar.getY();
                 bar.setLocation(newX, newY);
-                panel.setLocation(newX, newY);
+                paddle.setLocation(newX, newY);
             }
         });
 
