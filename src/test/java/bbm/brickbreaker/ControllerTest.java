@@ -36,19 +36,19 @@ public class ControllerTest {
 
     @Test
     public void checkPaddleCollision() {
-        Ball ball = mock(Ball.class);
         Paddle paddle = mock(Paddle.class);
-        GameComponent view = mock(GameComponent.class);
-
-        Controller controller = new Controller(ball, List.of(), 10, paddle, view);
+        Ball ball = mock(Ball.class);
 
         when(paddle.getX()).thenReturn(100.0);
         when(paddle.getY()).thenReturn(400.0);
         when(paddle.getWidth()).thenReturn(100.0);
         when(paddle.getHeight()).thenReturn(20.0);
         when(ball.getY()).thenReturn(400.0);
-
         when(ball.getX()).thenReturn(110.0);
+
+        GameComponent view = mock(GameComponent.class);
+        Controller controller = new Controller(ball, List.of(), 10, paddle, view);
+
         controller.checkPaddleCollision();
         verify(ball).bouncePaddle(Bounds.LEFT_EDGE);
 
