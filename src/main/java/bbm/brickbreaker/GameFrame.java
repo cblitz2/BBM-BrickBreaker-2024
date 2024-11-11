@@ -15,7 +15,8 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Paddle paddle = new Paddle(350, 520);
+
+        Paddle paddle = new Paddle(350, 520, 100, 20);
         Ball ball = new Ball(45, 800, 600, paddle.getX() + 40, paddle.getY() - 20);
         List<Brick> bricks = createBricks(20, 40, 20);
 
@@ -26,7 +27,8 @@ public class GameFrame extends JFrame {
         JLabel bar = new JLabel();
         bar.setOpaque(true);
         bar.setBackground(Color.BLUE);
-        bar.setBounds(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
+
+        bar.setBounds((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
         add(bar);
 
         Controller controller = new Controller(ball, bricks, 10, paddle, component);
@@ -44,10 +46,10 @@ public class GameFrame extends JFrame {
                 int keyCode = e.getKeyCode();
                 switch (keyCode) {
                     case KeyEvent.VK_LEFT:
-                        bar.setLocation(bar.getX() - 30, bar.getY());
+                        bar.setLocation(bar.getX() - 20, bar.getY());
                         break;
                     case KeyEvent.VK_RIGHT:
-                        bar.setLocation(bar.getX() + 30, bar.getY());
+                        bar.setLocation(bar.getX() + 20, bar.getY());
                         break;
                     default:
                         break;

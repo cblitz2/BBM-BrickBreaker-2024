@@ -9,6 +9,7 @@ public class GameComponent extends JComponent {
     private final Ball ball;
     private final Paddle paddle;
 
+
     public GameComponent(List<Brick> bricks, Ball ball, Paddle paddle) {
         this.bricks = bricks;
         this.ball = ball;
@@ -32,6 +33,6 @@ public class GameComponent extends JComponent {
         g.fillOval((int) ball.getX() - 10, (int) ball.getY()  - 10, 20, 20);
 
         g.setColor(Color.BLUE);
-        g.fillRect(paddle.getX(),  paddle.getY(), paddle.getWidth(), paddle.getHeight());
+        g.fillRect((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
     }
 }

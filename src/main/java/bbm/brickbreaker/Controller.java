@@ -9,10 +9,8 @@ public class Controller {
     private final Ball ball;
     private final List<Brick> bricks;
     private final Paddle paddle;
-    private GameComponent view;
-
-    private int radius;
-
+    private final GameComponent view;
+    private final int radius;
     private Timer timer;
 
     public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
@@ -41,16 +39,16 @@ public class Controller {
                     hitDirection = RIGHT;
                 } else if (newY - radius <= 0) {
                     hitDirection = TOP;
-                } else if (newY + radius >= ball.getHeight()) {
+                } else if (newY + radius > ball.getHeight()) {
                     timer.stop();
                 }
 
                 if (hitDirection != NONE) {
-                    ball.bounce(hitDirection);
+                    ball.bounceWalls(hitDirection);
                 }
             }
 
-            checkPanelCollision();
+            checkPaddleCollision();
             breakBricks();
         });
 
@@ -61,23 +59,45 @@ public class Controller {
         Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
                 (int) ball.getY() - radius,
                 radius * 2, radius * 2);
-
         for (Brick brick : bricks) {
             if (!brick.isHit() && brick.getBounds().intersects(ballBounds)) {
                 brick.setHit(true);
-                ball.bounce(Bounds.TOP);
+                ball.bounceWalls(Bounds.TOP);
                 view.repaint();
                 break;
             }
         }
     }
 
-    private void checkPanelCollision() {
-        Rectangle panelBounds = new Rectangle(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
-        Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(), radius * 2, radius * 2);
+    private void checkPaddleCollision() {
+        Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
+                (int) paddle.getWidth(), (int) paddle.getHeight());
+        Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
+                radius * 2, radius * 2);
 
-        if (panelBounds.intersects(ballBounds)) {
-            ball.bounce(Bounds.TOP);
+        if (paddleBounds.intersects(ballBounds)) {
+            double sectionWidth = paddle.getWidth() / 5;
+            double section = (ball.getX() - paddle.getX()) / sectionWidth;
+
+            switch ((int) section) {
+                case 0:
+                    ball.bouncePaddle(LEFT_EDGE);
+                    break;
+                case 1:
+                    ball.bouncePaddle(LEFT);
+                    break;
+                case 2:
+                    ball.bouncePaddle(MIDDLE);
+                    break;
+                case 3:
+                    ball.bouncePaddle(RIGHT);
+                    break;
+                case 4:
+                    ball.bouncePaddle(RIGHT_EDGE);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

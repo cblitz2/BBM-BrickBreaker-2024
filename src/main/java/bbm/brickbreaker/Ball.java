@@ -24,20 +24,36 @@ public class Ball extends Ellipse2D.Double {
         return getY() + Math.sin(Math.toRadians(angle)) * VELOCITY;
     }
 
-    public int bounce(Bounds direction) {
+    public void bounceWalls(Bounds direction) {
         switch (direction) {
             case LEFT, RIGHT ->
                     angle = (180 - angle) % 360;
-            case TOP, BOTTOM ->
+            case TOP ->
                     angle = (360 - angle) % 360;
-            default -> { }
+            default -> {
+            }
         }
-        return angle;
+    }
+
+    public void bouncePaddle(Bounds direction) {
+        switch (direction) {
+            case LEFT ->
+                    angle = 315;
+            case RIGHT ->
+                    angle = 225;
+            case LEFT_EDGE ->
+                    angle = 200;
+            case RIGHT_EDGE ->
+                    angle = 340;
+            case MIDDLE ->
+                    angle = 270;
+            default -> {
+            }
+        }
     }
 
     public boolean hitsWall(double radius) {
         return (x - radius <= 0 || x + radius >= width
                 || y - radius <= 0 || y + radius >= height);
     }
-
 }
