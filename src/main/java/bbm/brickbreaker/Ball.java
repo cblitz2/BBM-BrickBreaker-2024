@@ -56,4 +56,8 @@ public class Ball extends Ellipse2D.Double {
         return (x - radius <= 0 || x + radius >= width
                 || y - radius <= 0 || y + radius >= height);
     }
+
+    public int getAngle() {
+        return angle;
+    }
 }

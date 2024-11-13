@@ -55,7 +55,7 @@ public class Controller {
         timer.start();
     }
 
-    private void breakBricks() {
+    public void breakBricks() {
         Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
                 (int) ball.getY() - radius,
                 radius * 2, radius * 2);
@@ -69,7 +69,7 @@ public class Controller {
         }
     }
 
-    private void checkPaddleCollision() {
+    public void checkPaddleCollision() {
         Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
                 (int) paddle.getWidth(), (int) paddle.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
