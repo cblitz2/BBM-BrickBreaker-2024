@@ -10,8 +10,9 @@ public class NetworkController {
     private final Ball ball;
     private final Paddle paddle;
     private final int radius;
-    private static final int NUM_GENERATIONS = 50;
+    private static final int NUM_GENERATIONS = 5;
     private static final int GENERATION_SIZE = 1000;
+    private static final int NUM_ROUNDS = 10000;
     private ArrayList<NeuralNetwork> newGeneration = new ArrayList<>();
     private ArrayList<NeuralNetwork> top10 = new ArrayList<>();
 
@@ -23,7 +24,7 @@ public class NetworkController {
 
     public void generate() {
         for (int i = 0; i < GENERATION_SIZE; i++) {
-            NeuralNetwork network = new NeuralNetwork(1, 4, 2);
+            NeuralNetwork network = new NeuralNetwork(1, 4, 2, 2);
             newGeneration.add(network);
         }
 
@@ -60,21 +61,28 @@ public class NetworkController {
 
         for (NeuralNetwork neuralNetwork : newGeneration) {
             Network network = new Network(neuralNetwork);
-            int alive = 0;
-            double newY;
+            int score = 0;
 
-            do {
+            for (int i = 0; i < NUM_ROUNDS; i++) {
+                System.out.println("ball before update: " + ball.getX() + ", " + ball.getY());
                 double newX = ball.updateX();
-                newY = ball.updateY();
-                ball.setPosition(newX, newY);
+                double newY = ball.updateY();
 
+                ball.setPosition(newX, newY);
+                System.out.println("ball after update: " + ball.getX() + ", " + ball.getY());
+
+                System.out.println("paddle before update: " + paddle.getX() + ", " + paddle.getY());
                 Bounds direction = network.movePaddle();
 
-                if (direction == LEFT && paddle.getX() > 0) {
-                    paddle.setLocation((int) paddle.getX() - 10, (int) paddle.getY());
-                } else if (direction == RIGHT && paddle.getX() + paddle.getWidth() < 800) {
-                    paddle.setLocation((int) paddle.getX() + 10, (int) paddle.getY());
+                if (direction == LEFT) {
+                    paddle.setLocation((int) paddle.getX() - 20, (int) paddle.getY());
+                    System.out.println("left");
+                } else if (direction == RIGHT) {
+                    paddle.setLocation((int) paddle.getX() + 20, (int) paddle.getY());
+                    System.out.println("right");
                 }
+                System.out.println("paddle after update: " + paddle.getX() + ", " + paddle.getY());
+
 
                 Bounds hitDirection = NONE;
 
@@ -85,47 +93,47 @@ public class NetworkController {
                         hitDirection = RIGHT;
                     } else if (newY - radius <= 0) {
                         hitDirection = TOP;
+                    } else if (newY + radius > 600) {
+                        i = 10000;
                     }
-
                     if (hitDirection != NONE) {
                         ball.bounceWalls(hitDirection);
                     }
                 }
 
-                checkPaddleCollision();
-                alive++;
+                score = checkPaddleCollision(score);
 
-            } while (newY + radius < ball.getHeight());
+                if (genTop10.size() < 10) {
+                    genTop10.put(neuralNetwork, score);
+                } else {
+                    Map.Entry<NeuralNetwork, Integer> minEntry = null;
+                    for (Map.Entry<NeuralNetwork, Integer> entry : genTop10.entrySet()) {
+                        if (minEntry == null || entry.getValue() < minEntry.getValue()) {
+                            minEntry = entry;
+                        }
+                    }
 
-            if (genTop10.size() < 10) {
-                genTop10.put(neuralNetwork, alive);
-            } else {
-                Map.Entry<NeuralNetwork, Integer> minEntry = null;
-                for (Map.Entry<NeuralNetwork, Integer> entry : genTop10.entrySet()) {
-                    if (minEntry == null || entry.getValue() < minEntry.getValue()) {
-                        minEntry = entry;
+                    if (score > minEntry.getValue()) {
+                        genTop10.remove(minEntry.getKey());
+                        genTop10.put(neuralNetwork, score);
                     }
                 }
-
-                if (alive > minEntry.getValue()) {
-                    genTop10.remove(minEntry.getKey());
-                    genTop10.put(neuralNetwork, alive);
-                }
             }
+            for (Map.Entry<NeuralNetwork, Integer> entry : genTop10.entrySet()) {
+                System.out.println(entry.getKey() + " is alive " + entry.getValue() + " times");
+            }
+            top10 = new ArrayList<>(genTop10.keySet());
         }
-        for (Map.Entry<NeuralNetwork, Integer> entry : genTop10.entrySet()) {
-            System.out.println(entry.getKey() + " is alive " + entry.getValue() + " times");
-        }
-        top10 = new ArrayList<>(genTop10.keySet());
     }
 
-    public void checkPaddleCollision() {
+    public int checkPaddleCollision(int score) {
         Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
                 (int) paddle.getWidth(), (int) paddle.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
                 radius * 2, radius * 2);
 
         if (paddleBounds.intersects(ballBounds)) {
+            score++;
             System.out.println("collided");
             double sectionWidth = paddle.getWidth() / 5;
             double section = (ball.getX() - paddle.getX()) / sectionWidth;
@@ -150,5 +158,6 @@ public class NetworkController {
                     break;
             }
         }
+        return score;
     }
 }

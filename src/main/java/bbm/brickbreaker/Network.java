@@ -17,7 +17,7 @@ public class Network {
 
     public Bounds movePaddle() {
         double[] input = new double[1];
-        input[0] = 90;
+        input[0] = 270;
         double[] answer = network.guess(input);
         Bounds direction;
 
