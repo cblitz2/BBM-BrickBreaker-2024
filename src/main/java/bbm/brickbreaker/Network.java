@@ -23,8 +23,7 @@ public class Network {
 
         if (answer[0] > answer[1]) {
             direction = LEFT;
-        }
-        else  {
+        } else  {
             direction = RIGHT;
         }
         return direction;
