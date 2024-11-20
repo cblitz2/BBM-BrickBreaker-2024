@@ -36,20 +36,21 @@ public class Ball extends Ellipse2D.Double {
     }
 
     public void bouncePaddle(Bounds direction) {
-        switch (direction) {
-            case LEFT ->
-                    angle = 315;
-            case RIGHT ->
-                    angle = 225;
-            case LEFT_EDGE ->
-                    angle = 200;
-            case RIGHT_EDGE ->
-                    angle = 340;
-            case MIDDLE ->
-                    angle = 270;
-            default -> {
-            }
-        }
+        angle = 270;
+//        switch (direction) {
+//            case LEFT ->
+//                    angle = 315;
+//            case RIGHT ->
+//                    angle = 225;
+//            case LEFT_EDGE ->
+//                    angle = 200;
+//            case RIGHT_EDGE ->
+//                    angle = 340;
+//            case MIDDLE ->
+//                    angle = 270;
+//            default -> {
+//            }
+//        }
     }
 
     public boolean hitsWall(double radius) {
@@ -59,5 +60,14 @@ public class Ball extends Ellipse2D.Double {
 
     public int getAngle() {
         return angle;
+    }
+
+    public int getVelocity()
+    {
+        return VELOCITY;
+    }
+
+    public void setAngle(int angle) {
+        this.angle = angle;
     }
 }
