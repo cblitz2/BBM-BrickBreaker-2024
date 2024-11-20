@@ -23,12 +23,14 @@ public class NetworkController {
 
     public void generate() {
         for (int i = 0; i < GENERATION_SIZE; i++) {
-            NeuralNetwork network = new NeuralNetwork(2, 4, 2);
+            NeuralNetwork network = new NeuralNetwork(1, 4, 2);
             newGeneration.add(network);
         }
 
         for (int i = 1; i < NUM_GENERATIONS; i++) {
             System.out.println("Curr gen: " + i);
+            paddle.setLocation(paddle.getStartX(), (int) paddle.getY());
+            ball.setPosition(ball.getStartX(), ball.getY());
             getTop10();
             updateNetwork();
         }
@@ -57,21 +59,21 @@ public class NetworkController {
         HashMap<NeuralNetwork, Integer> genTop10 = new HashMap<>();
 
         for (NeuralNetwork neuralNetwork : newGeneration) {
-            Network network = new Network(neuralNetwork, paddle, ball);
+            Network network = new Network(neuralNetwork);
             int alive = 0;
             double newY;
 
             do {
-                double newX = ball.locationX();
-                newY = ball.locationY();
+                double newX = ball.updateX();
+                newY = ball.updateY();
                 ball.setPosition(newX, newY);
 
                 Bounds direction = network.movePaddle();
 
                 if (direction == LEFT && paddle.getX() > 0) {
-                    paddle.setLocation((int) paddle.getX() - 20, (int) paddle.getY());
-                } else if (direction == RIGHT && paddle.getX() + paddle.getWidth() < ball.getWidth()) {
-                    paddle.setLocation((int) paddle.getX() + 20, (int) paddle.getY());
+                    paddle.setLocation((int) paddle.getX() - 10, (int) paddle.getY());
+                } else if (direction == RIGHT && paddle.getX() + paddle.getWidth() < 800) {
+                    paddle.setLocation((int) paddle.getX() + 10, (int) paddle.getY());
                 }
 
                 Bounds hitDirection = NONE;

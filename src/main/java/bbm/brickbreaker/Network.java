@@ -10,26 +10,23 @@ import static bbm.brickbreaker.Bounds.*;
 
 public class Network {
     private final NeuralNetwork network;
-    private final Paddle paddle;
-    private final Ball ball;
 
-    public Network(NeuralNetwork network, Paddle paddle, Ball ball) {
+    public Network(NeuralNetwork network) {
         this.network = network;
-        this.paddle = paddle;
-        this.ball = ball;
     }
 
     public Bounds movePaddle() {
-        double[] inputs = new double[2];
-        inputs[0] = ball.getX() - paddle.getX();  // Relative position of ball to paddle
-        inputs[1] = ball.getY() - paddle.getY();  // Vertical position difference
+        double[] input = new double[1];
+        input[0] = 90;
+        double[] answer = network.guess(input);
+        Bounds direction;
 
-        double[] outputs = network.guess(inputs);
-
-        if (outputs[0] > outputs[1]) {
-            return LEFT;
-        } else {
-            return RIGHT;
+        if (answer[0] > answer[1]) {
+            direction = LEFT;
         }
+        else  {
+            direction = RIGHT;
+        }
+        return direction;
     }
 }

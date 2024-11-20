@@ -24,8 +24,8 @@ public class Controller {
 
     public void play() {
         timer = new Timer(1000 / 60, e -> {
-            double newX = ball.locationX();
-            double newY = ball.locationY();
+            double newX = ball.updateX();
+            double newY = ball.updateY();
 
             ball.setPosition(newX, newY);
             view.repaint();

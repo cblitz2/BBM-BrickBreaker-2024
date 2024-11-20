@@ -5,10 +5,12 @@ import java.awt.geom.Ellipse2D;
 public class Ball extends Ellipse2D.Double {
     private static final int VELOCITY = 10;
     private int angle;
+    private final double startX;
 
     public Ball(int angle, int width, int height, double x, double y) {
         super(x, y, width, height);
         this.angle = angle;
+        this.startX = x;
     }
 
     public void setPosition(double newX, double newY) {
@@ -16,11 +18,11 @@ public class Ball extends Ellipse2D.Double {
         this.y = newY;
     }
 
-    public double locationX() {
+    public double updateX() {
         return getX() + Math.cos(Math.toRadians(angle)) * VELOCITY;
     }
 
-    public double locationY() {
+    public double updateY() {
         return getY() + Math.sin(Math.toRadians(angle)) * VELOCITY;
     }
 
@@ -68,5 +70,9 @@ public class Ball extends Ellipse2D.Double {
 
     public void setAngle(int angle) {
         this.angle = angle;
+    }
+
+    public double getStartX() {
+        return startX;
     }
 }
