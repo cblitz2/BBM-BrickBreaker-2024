@@ -10,7 +10,7 @@ public class NetworkController {
     private final Ball ball;
     private final Paddle paddle;
     private final int radius;
-    private static final int NUM_GENERATIONS = 100;
+    private static final int NUM_GENERATIONS = 50;
     private static final int GENERATION_SIZE = 1000;
     private ArrayList<NeuralNetwork> newGeneration = new ArrayList<>();
     private ArrayList<NeuralNetwork> top10 = new ArrayList<>();
