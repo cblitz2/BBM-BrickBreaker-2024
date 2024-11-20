@@ -50,7 +50,6 @@ public class NetworkController {
                     child = child.merge(parent1);
                 }
             }
-
             child.mutate(0.1);
             newGeneration.add(child);
         }
@@ -74,10 +73,10 @@ public class NetworkController {
                 System.out.println("paddle before update: " + paddle.getX() + ", " + paddle.getY());
                 Bounds direction = network.movePaddle();
 
-                if (direction == LEFT) {
+                if (direction == LEFT && paddle.getX() > 0) {
                     paddle.setLocation((int) paddle.getX() - 20, (int) paddle.getY());
                     System.out.println("left");
-                } else if (direction == RIGHT) {
+                } else if (direction == RIGHT && paddle.getX() < 780) {
                     paddle.setLocation((int) paddle.getX() + 20, (int) paddle.getY());
                     System.out.println("right");
                 }
@@ -133,6 +132,8 @@ public class NetworkController {
                 radius * 2, radius * 2);
 
         if (paddleBounds.intersects(ballBounds)) {
+            System.out.println("ball x collided: " + ball.getX());
+            System.out.println("paddle x collided: " + paddle.getX());
             score++;
             System.out.println("collided");
             double sectionWidth = paddle.getWidth() / 5;
