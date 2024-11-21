@@ -8,8 +8,9 @@ import java.util.Random;
 import static bbm.brickbreaker.Bounds.*;
 
 
-public class Network {
+public class Network implements Comparable<Network>{
     private final NeuralNetwork network;
+    private int score;
 
     public Network(NeuralNetwork network) {
         this.network = network;
@@ -27,5 +28,23 @@ public class Network {
             direction = RIGHT;
         }
         return direction;
+    }
+
+    public void incrementScore() {
+        score++;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+
+    public NeuralNetwork neuralNetwork() {
+        return network;
+    }
+
+    @Override
+    public int compareTo(Network o) {
+        return Integer.compare(o.score, this.score);
     }
 }

@@ -3,7 +3,7 @@ package bbm.brickbreaker;
 import java.awt.geom.Ellipse2D;
 
 public class Ball extends Ellipse2D.Double {
-    private static final int VELOCITY = 10;
+    private static final int VELOCITY = 2;
     private int angle;
     private final double startX;
 
@@ -30,8 +30,9 @@ public class Ball extends Ellipse2D.Double {
         switch (direction) {
             case LEFT, RIGHT ->
                     angle = (180 - angle) % 360;
-            case TOP ->
-                    angle = (360 - angle) % 360;
+            case TOP -> {
+                angle = (360 - angle) % 360;
+            }
             default -> {
             }
         }
@@ -55,8 +56,8 @@ public class Ball extends Ellipse2D.Double {
     }
 
     public boolean hitsWall(double radius) {
-        return (x - radius <= 0 || x + radius >= width
-                || y - radius <= 0 || y + radius >= height);
+        return (x - radius < 0 || x + radius > width
+                || y - radius < 0 || y + radius > height);
     }
 
     public int getAngle() {
