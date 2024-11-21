@@ -32,13 +32,11 @@ public class GameFrame extends JFrame {
         add(bar);
 
         Controller controller = new Controller(ball, bricks, 10, paddle, component);
-       // NetworkController controller = new NetworkController(ball, 10, paddle);
 
         bar.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 controller.play();
-              //  controller.generate();
             }
         });
 

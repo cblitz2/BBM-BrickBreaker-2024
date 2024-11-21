@@ -8,7 +8,7 @@ import java.util.Random;
 import static bbm.brickbreaker.Bounds.*;
 
 
-public class Network implements Comparable<Network>{
+public class Network implements Comparable<Network> {
     private final NeuralNetwork network;
     private int score;
 
