@@ -13,8 +13,6 @@ public class Controller {
     private final GameComponent view;
     private final int radius;
     private Timer timer;
-    private final int diameter;
-
 
     public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
         this.ball = ball;
@@ -22,7 +20,6 @@ public class Controller {
         this.paddle = paddle;
         this.radius = radius;
         this.view = view;
-        diameter = radius * 2;
     }
 
     public void play() {
@@ -60,7 +57,7 @@ public class Controller {
     public void breakBricks() {
         Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
                 (int) ball.getY() - radius,
-                diameter, diameter);
+                radius * 2, radius * 2);
         for (Brick brick : bricks) {
             if (!brick.isHit() && brick.getBounds().intersects(ballBounds)) {
                 brick.setHit(true);
@@ -75,10 +72,10 @@ public class Controller {
         Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
                 (int) paddle.getWidth(), (int) paddle.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
-                diameter, diameter);
+                radius * 2, radius * 2);
 
         if (paddleBounds.intersects(ballBounds)) {
-            double sectionWidth = paddle.getWidth() / paddle.getPaddleSections();
+            double sectionWidth = paddle.getWidth() / 5;
             double section = (ball.getX() - paddle.getX()) / sectionWidth;
 
             switch ((int) section) {
