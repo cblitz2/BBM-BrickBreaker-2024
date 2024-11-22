@@ -1,10 +1,12 @@
 package bbm.brickbreaker;
 
 import basicneuralnetwork.NeuralNetwork;
+
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static basicneuralnetwork.utilities.FileReaderAndWriter.writeToFile;
 import static bbm.brickbreaker.Bounds.*;
 
 public class NetworkController {
@@ -22,6 +24,7 @@ public class NetworkController {
     private static final int PADDLE_STEP = 1;
     private static final double MUTATION_RATE = 0.1;
     private final int maxBound = 800;
+    private NeuralNetwork topNetwork;
 
 
     private ArrayList<NeuralNetwork> newGeneration = new ArrayList<>();
@@ -48,6 +51,8 @@ public class NetworkController {
             getTop10();
             updateNetwork();
         }
+
+        topNetwork = top10.get(0);
     }
 
     public void updateNetwork() {
@@ -68,38 +73,8 @@ public class NetworkController {
 
         for (NeuralNetwork neuralNetwork : newGeneration) {
             Network network = new Network(neuralNetwork);
-
             for (int i = 0; i < NUM_ROUNDS; i++) {
-                double newX = ball.updateX();
-                double newY = ball.updateY();
-
-                ball.setPosition(newX, newY);
-
-                Bounds direction = network.movePaddle();
-
-                if (direction == LEFT && paddle.getX() > 0) {
-                    paddle.setLocation((int) paddle.getX() - PADDLE_STEP, (int) paddle.getY());
-                } else if (direction == RIGHT && paddle.getX() < PADDLE_MAX_X) {
-                    paddle.setLocation((int) paddle.getX() + PADDLE_STEP, (int) paddle.getY());
-                }
-
-                Bounds hitDirection = NONE;
-
-                if (ball.hitsWall(radius)) {
-                    if (newX - radius <= 0) {
-                        hitDirection = LEFT;
-                    } else if (newX + radius >= ball.getWidth()) {
-                        hitDirection = RIGHT;
-                    } else if (newY < BALL_MAX_Y) {
-                        hitDirection = TOP;
-                    } else if (newY + radius > maxBound) {
-                        i = NUM_ROUNDS;
-                    }
-                    if (hitDirection != NONE) {
-                        ball.bounceWalls(hitDirection);
-                    }
-                }
-                checkPaddleCollision(network);
+                play(network);
             }
             allNetworks.add(network);
         }
@@ -132,4 +107,46 @@ public class NetworkController {
             }
         }
     }
+
+    public NeuralNetwork getTopNetwork() {
+        return topNetwork;
+    }
+
+    public void setTopNetwork(NeuralNetwork network) {
+        this.topNetwork = network;
+    }
+
+    public void play(Network network) {
+        double newX = ball.updateX();
+        double newY = ball.updateY();
+
+        ball.setPosition(newX, newY);
+
+        Bounds direction = network.movePaddle();
+
+        if (direction == LEFT && paddle.getX() > 0) {
+            paddle.setLocation((int) paddle.getX() - PADDLE_STEP, (int) paddle.getY());
+        } else if (direction == RIGHT && paddle.getX() < PADDLE_MAX_X) {
+            paddle.setLocation((int) paddle.getX() + PADDLE_STEP, (int) paddle.getY());
+        }
+
+        Bounds hitDirection = NONE;
+
+        if (ball.hitsWall(radius)) {
+            if (newX - radius <= 0) {
+                hitDirection = LEFT;
+            } else if (newX + radius >= ball.getWidth()) {
+                hitDirection = RIGHT;
+            } else if (newY < BALL_MAX_Y) {
+                hitDirection = TOP;
+            } else if (newY + radius > maxBound) {
+                hitDirection = NONE;
+            }
+            if (hitDirection != NONE) {
+                ball.bounceWalls(hitDirection);
+            }
+        }
+        checkPaddleCollision(network);
+    }
+
 }

@@ -8,5 +8,6 @@ public enum Bounds {
     MIDDLE,
     LEFT_EDGE,
     RIGHT_EDGE,
-    NONE
+    NONE,
+    BOTTOM
 }

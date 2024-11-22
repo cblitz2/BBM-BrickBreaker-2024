@@ -1,0 +1,190 @@
+{
+  "inputNodes": 1,
+  "hiddenLayers": 4,
+  "hiddenNodes": 2,
+  "outputNodes": 2,
+  "weights": [
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            0.9118339011061045,
+            0.5260191400915408
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            -0.06301750451490662,
+            -0.6250053934832842,
+            -0.9718077353839183,
+            -0.208222175973368
+          ],
+          "numRows": 2,
+          "numCols": 2
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            -0.5783391795124,
+            0.06024323222970396,
+            0.11412470789342621,
+            0.3301836776404907
+          ],
+          "numRows": 2,
+          "numCols": 2
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            0.8028428687079907,
+            0.4668730160490475,
+            0.23161046603057045,
+            0.6579971267881903
+          ],
+          "numRows": 2,
+          "numCols": 2
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            0.11157663277588559,
+            -0.43899509922029445,
+            0.44781855678604066,
+            0.4784049347396453
+          ],
+          "numRows": 2,
+          "numCols": 2
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    }
+  ],
+  "biases": [
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            0.529572403957469,
+            -0.13358643800586711
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            0.4888193260873852,
+            0.19684427026327667
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            -0.5651020467171695,
+            0.6176737047052698
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            -0.7504555269246209,
+            0.34002667749345483
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    },
+    {
+      "mat": {
+        "type": "org.ejml.data.DMatrixRMaj",
+        "data": {
+          "data": [
+            -0.5239275544867199,
+            0.5953457596925973
+          ],
+          "numRows": 2,
+          "numCols": 1
+        }
+      },
+      "ops": {
+        "type": "org.ejml.simple.ops.SimpleOperations_DDRM",
+        "data": {}
+      }
+    }
+  ],
+  "learningRate": 0.1,
+  "activationFunctionKey": "SIGMOID"
+}
