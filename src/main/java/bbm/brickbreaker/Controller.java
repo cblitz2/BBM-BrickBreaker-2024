@@ -13,6 +13,8 @@ public class Controller {
     private final GameComponent view;
     private final int radius;
     private Timer timer;
+    private final int diameter;
+
 
     public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
         this.ball = ball;
@@ -20,6 +22,7 @@ public class Controller {
         this.paddle = paddle;
         this.radius = radius;
         this.view = view;
+        diameter = radius * 2;
     }
 
     public void play() {
@@ -57,7 +60,7 @@ public class Controller {
     public void breakBricks() {
         Rectangle ballBounds = new Rectangle((int) ball.getX() - radius,
                 (int) ball.getY() - radius,
-                radius * 2, radius * 2);
+                diameter, diameter);
         for (Brick brick : bricks) {
             if (!brick.isHit() && brick.getBounds().intersects(ballBounds)) {
                 brick.setHit(true);
@@ -72,30 +75,20 @@ public class Controller {
         Rectangle paddleBounds = new Rectangle((int) paddle.getX(), (int) paddle.getY(),
                 (int) paddle.getWidth(), (int) paddle.getHeight());
         Rectangle ballBounds = new Rectangle((int) ball.getX(), (int) ball.getY(),
-                radius * 2, radius * 2);
+                diameter, diameter);
 
         if (paddleBounds.intersects(ballBounds)) {
-            double sectionWidth = paddle.getWidth() / 5;
+            double sectionWidth = paddle.getWidth() / paddle.getPaddleSections();
             double section = (ball.getX() - paddle.getX()) / sectionWidth;
 
             switch ((int) section) {
-                case 0:
-                    ball.bouncePaddle(LEFT_EDGE);
-                    break;
-                case 1:
-                    ball.bouncePaddle(LEFT);
-                    break;
-                case 2:
-                    ball.bouncePaddle(MIDDLE);
-                    break;
-                case 3:
-                    ball.bouncePaddle(RIGHT);
-                    break;
-                case 4:
-                    ball.bouncePaddle(RIGHT_EDGE);
-                    break;
-                default:
-                    break;
+                case 0 -> ball.bouncePaddle(LEFT_EDGE);
+                case 1 -> ball.bouncePaddle(LEFT);
+                case 2 -> ball.bouncePaddle(MIDDLE);
+                case 3 -> ball.bouncePaddle(RIGHT);
+                case 4 -> ball.bouncePaddle(RIGHT_EDGE);
+                default -> {
+                }
             }
         }
     }

@@ -8,20 +8,22 @@ import java.util.List;
 import java.util.Random;
 
 public class GameFrame extends JFrame {
+    private final int width = 800;
+    private final int height = 600;
 
     public GameFrame() {
-        setSize(800, 600);
+        setSize(width, height);
         setTitle("Brick Breaker");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
 
         Paddle paddle = new Paddle(350, 520, 100, 20);
-        Ball ball = new Ball(45, 800, 600, paddle.getX() + 40, paddle.getY() - 20);
+        Ball ball = new Ball(45, width, height, paddle.getX() + 40, paddle.getY() - 20);
         List<Brick> bricks = createBricks(20, 40, 20);
 
         GameComponent component = new GameComponent(bricks, ball, paddle);
-        component.setBounds(0, 0, 800, 600);
+        component.setBounds(0, 0, width, height);
         add(component);
 
         JLabel bar = new JLabel();

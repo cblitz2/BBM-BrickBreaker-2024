@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BallTest {
     @Test
     void bounceWalls() {
-        Ball ball = new Ball(45, 800, 600, 100, 100);
+        Ball ball = new Ball(45, 800, 600,  100, 100);
 
         ball.bounceWalls(RIGHT);
         assertEquals(ball.getAngle(), 135);

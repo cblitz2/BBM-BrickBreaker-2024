@@ -1,10 +1,6 @@
 package bbm.brickbreaker;
 
 import basicneuralnetwork.NeuralNetwork;
-
-import java.util.ArrayList;
-import java.util.Random;
-
 import static bbm.brickbreaker.Bounds.*;
 
 

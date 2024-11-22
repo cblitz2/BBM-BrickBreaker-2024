@@ -9,7 +9,6 @@ public class GameComponent extends JComponent {
     private final Ball ball;
     private final Paddle paddle;
 
-
     public GameComponent(List<Brick> bricks, Ball ball, Paddle paddle) {
         this.bricks = bricks;
         this.ball = ball;
