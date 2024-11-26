@@ -13,8 +13,8 @@ public class Controller {
     private final GameComponent view;
     private final int radius;
     private Timer timer;
-
-    public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle, GameComponent view) {
+    public Controller(Ball ball, List<Brick> bricks, int radius, Paddle paddle,
+                      GameComponent view) {
         this.ball = ball;
         this.bricks = bricks;
         this.paddle = paddle;

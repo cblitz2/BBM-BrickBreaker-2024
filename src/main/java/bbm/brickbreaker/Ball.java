@@ -33,9 +33,6 @@ public class Ball extends Ellipse2D.Double {
             case TOP -> {
                 angle = (360 - angle) % 360;
             }
-            case BOTTOM -> {
-                break;
-            }
             default -> {
             }
         }
@@ -60,7 +57,7 @@ public class Ball extends Ellipse2D.Double {
 
     public boolean hitsWall(double radius) {
         return (x - radius < 0 || x + radius > width
-                || y - radius < 0 || y + radius > height);
+                || y - radius < 0 || y + radius > 600);
     }
 
     public int getAngle() {

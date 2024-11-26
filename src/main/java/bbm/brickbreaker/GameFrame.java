@@ -2,18 +2,19 @@ package bbm.brickbreaker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import basicneuralnetwork.NeuralNetwork;
-import static basicneuralnetwork.NeuralNetwork.readFromFile;
 
 public class GameFrame extends JFrame {
     private final int width = 800;
     private final int height = 600;
 
-    public GameFrame() throws IOException {
+    public GameFrame() {
         setSize(width, height);
         setTitle("Brick Breaker");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -35,30 +36,9 @@ public class GameFrame extends JFrame {
         bar.setBounds((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
         add(bar);
 
-        // Initialize NetworkController
-        NetworkController controller = new NetworkController(ball, 10, paddle);
-        Network preTrainedAI = new Network(readFromFile("ai.json"));
-
-        // Load the trained AI from JSON file
-        //controller.setTopNetwork(preTrainedAI);
-
-        // Timer to update the game state
-        Timer gameLoop = new Timer(16, e -> {
-            // Update ball position
-            //ball.update();
-            controller.play(preTrainedAI);
-            //preTrainedAI.movePaddle();
-            // Repaint components (UI refresh)
-            bar.setLocation((int) paddle.getX(), (int) paddle.getY());
-            component.repaint();
-        });
-
-        gameLoop.start();
-    }
-
 
 //        Controller controller = new Controller(ball, bricks, 10, paddle, component);
-//
+
 //        bar.addMouseListener(new MouseAdapter() {
 //            @Override
 //            public void mousePressed(MouseEvent e) {
@@ -84,10 +64,10 @@ public class GameFrame extends JFrame {
 //                component.repaint();
 //            }
 //        });
-//
-//        setFocusable(true);
-//        component.repaint();
-//    }
+
+        setFocusable(true);
+        component.repaint();
+    }
 
     private List<Brick> createBricks(int numBricks, int brickWidth, int brickHeight) {
         List<Brick> bricks = new ArrayList<>();
