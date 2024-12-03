@@ -14,7 +14,6 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        NeuralNetwork network = new NeuralNetwork(topNetwork);
         Ball ball = new Ball(20, 20, 390, 500);
         Paddle paddle = new Paddle(350, 520, 100, 20);
 
@@ -23,6 +22,7 @@ public class GameFrame extends JFrame {
 
         add(component);
 
+        NeuralNetwork network = new NeuralNetwork(topNetwork);
         Simulation simulation = new Simulation(network, ball, paddle, getWidth(), getHeight());
 
         startGameLoop(simulation);
