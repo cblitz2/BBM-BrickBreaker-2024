@@ -1,7 +1,6 @@
 package bbm.brickbreaker;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Brick extends Rectangle {
     private boolean hit;
