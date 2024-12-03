@@ -1,97 +1,41 @@
 package bbm.brickbreaker;
 
+import basicneuralnetwork.NeuralNetwork;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GameFrame extends JFrame {
-    private final int width = 800;
-    private final int height = 600;
+    private final GameComponent component;
+    private Timer gameTimer;
 
-    public GameFrame() {
-        setSize(width, height);
+    public GameFrame(NeuralNetwork topNetwork) {
+        setSize(800, 600);
         setTitle("Brick Breaker");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-
+        NeuralNetwork network = new NeuralNetwork(topNetwork);
+        Ball ball = new Ball(20, 20, 390, 500);
         Paddle paddle = new Paddle(350, 520, 100, 20);
-        Ball ball = new Ball(45, width, height, paddle.getX() + 40, paddle.getY() - 20);
-        List<Brick> bricks = createBricks(20, 40, 20);
+        Simulation simulation = new Simulation(network, ball, paddle, getWidth(), getHeight());
 
-        GameComponent component = new GameComponent(bricks, ball, paddle);
-        component.setBounds(0, 0, width, height);
+        component = new GameComponent(ball, paddle);
+        component.setBounds(0, 0, getWidth(), getHeight());
+
         add(component);
 
-        JLabel bar = new JLabel();
-        bar.setOpaque(true);
-        bar.setBackground(Color.BLUE);
-
-        bar.setBounds((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getWidth(), (int) paddle.getHeight());
-        add(bar);
-
-
-//        Controller controller = new Controller(ball, bricks, 10, paddle, component);
-
-//        bar.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//                controller.play();
-//            }
-//        });
-//
-//        addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                int keyCode = e.getKeyCode();
-//                switch (keyCode) {
-//                    case KeyEvent.VK_LEFT:
-//                        bar.setLocation(bar.getX() - 20, bar.getY());
-//                        break;
-//                    case KeyEvent.VK_RIGHT:
-//                        bar.setLocation(bar.getX() + 20, bar.getY());
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                paddle.setLocation(bar.getX(), bar.getY());
-//                component.repaint();
-//            }
-//        });
-
+        startGameLoop(simulation);
         setFocusable(true);
-        component.repaint();
     }
 
-    private List<Brick> createBricks(int numBricks, int brickWidth, int brickHeight) {
-        List<Brick> bricks = new ArrayList<>();
-        Random rand = new Random();
-
-        int maxX = getWidth() - brickWidth;
-        int maxY = getHeight() / 2 - brickHeight;
-
-        while (bricks.size() < numBricks) {
-            int x = rand.nextInt(maxX);
-            int y = rand.nextInt(maxY);
-
-            boolean overlap = false;
-            for (Brick b : bricks) {
-                if (b.intersects(new Rectangle(x, y, brickWidth, brickHeight))) {
-                    overlap = true;
-                    break;
-                }
+    private void startGameLoop(Simulation simulation) {
+        gameTimer = new Timer(4, e -> {
+            simulation.advance();
+            component.repaint();
+            if (simulation.isGameOver()) {
+                gameTimer.stop();
             }
-
-            if (!overlap) {
-                bricks.add(new Brick(x, y, brickWidth, brickHeight));
-            }
-        }
-        return bricks;
+        });
+        gameTimer.start();
     }
 }
