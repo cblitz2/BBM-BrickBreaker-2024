@@ -17,12 +17,13 @@ public class GameFrame extends JFrame {
         NeuralNetwork network = new NeuralNetwork(topNetwork);
         Ball ball = new Ball(20, 20, 390, 500);
         Paddle paddle = new Paddle(350, 520, 100, 20);
-        Simulation simulation = new Simulation(network, ball, paddle, getWidth(), getHeight());
 
         component = new GameComponent(ball, paddle);
         component.setBounds(0, 0, getWidth(), getHeight());
 
         add(component);
+
+        Simulation simulation = new Simulation(network, ball, paddle, getWidth(), getHeight());
 
         startGameLoop(simulation);
         setFocusable(true);

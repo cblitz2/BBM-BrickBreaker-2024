@@ -1,9 +1,9 @@
 package bbm.brickbreaker;
-import basicneuralnetwork.NeuralNetwork;
 
+import basicneuralnetwork.NeuralNetwork;
 import java.util.Random;
 
-public class Simulation implements Comparable<Simulation>{
+public class Simulation implements Comparable<Simulation> {
     private NeuralNetwork network;
     private Ball ball;
     private Paddle paddle;
