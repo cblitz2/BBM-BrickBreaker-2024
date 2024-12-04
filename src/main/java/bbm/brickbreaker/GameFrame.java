@@ -15,15 +15,15 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        Ball ball = new Ball(20, 20, 390, 500);
-        Paddle paddle = new Paddle(350, 520, 100, 20);
-        BrickFactory brickFactory = new BrickFactory(getWidth(), getHeight(), 40, 25);
-        NeuralNetwork network = new NeuralNetwork(topNetwork);
-
         score = new JLabel();
         score.setText("Score: 0");
         score.setBounds(getWidth() - 110, 10, 100, 30);
         add(score);
+
+        Ball ball = new Ball(20, 20, 390, 500);
+        Paddle paddle = new Paddle(350, 520, 100, 20);
+        NeuralNetwork network = new NeuralNetwork(topNetwork);
+        BrickFactory brickFactory = new BrickFactory(getWidth(), getHeight(), 40, 25);
 
         Simulation simulation = new Simulation(network, ball, paddle, brickFactory);
         component = new GameComponent(ball, paddle, simulation);
