@@ -35,17 +35,30 @@ public class Simulation implements Comparable<Simulation> {
 
         if (ball.hitsWall(800)) {
             ball.bounceWalls();
+            if (hitPaddle) {
+                hitPaddle = false;
+            }
+            if (hitBrick) {
+                hitBrick = false;
+            }
         }
 
         if (ball.hitsTop()) {
             ball.bounceTop();
+            if (hitPaddle) {
+                hitPaddle = false;
+            }
+            if (hitBrick) {
+                hitBrick = false;
+            }
         }
 
         if (ball.collidesPaddle(paddle)) {
-            ball.bouncePaddle();
+            ball.bouncePaddle(paddle);
             hitPaddle = true;
             if (hitBrick) {
                score++;
+               hitBrick = false;
             }
         }
 
@@ -54,6 +67,7 @@ public class Simulation implements Comparable<Simulation> {
             hitBrick = true;
             if (hitPaddle) {
                 score++;
+                hitPaddle = false;
             }
         }
 
@@ -73,9 +87,9 @@ public class Simulation implements Comparable<Simulation> {
         double[] output = network.guess(input);
 
         if (output[0] > output[1] && paddle.getX() > 0) {
-            paddle.setLocation((int) (paddle.getX() - 3), (int) paddle.getY());
+            paddle.setLocation((int) (paddle.getX() - 2), (int) paddle.getY());
         } else if (output[1] > output[0] && paddle.getX() < 780) {
-            paddle.setLocation((int) (paddle.getX() + 3), (int) paddle.getY());
+            paddle.setLocation((int) (paddle.getX() + 2), (int) paddle.getY());
         }
     }
 
@@ -86,6 +100,7 @@ public class Simulation implements Comparable<Simulation> {
     private void hitsBrick() {
         brick.setHit(true);
         this.brick = brickFactory.newBrick();
+        //System.out.println(brick.getX() + " " + brick.getY());
     }
 
     public int getScore() {

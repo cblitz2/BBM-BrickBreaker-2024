@@ -18,8 +18,8 @@ public class Brick extends Rectangle {
         this.hit = hit;
     }
 
-    public boolean contains(int ballCenterX, int ballCenterY) {
-        return ballCenterX >= x && ballCenterX <= x + width
-                && ballCenterY >= y && ballCenterY <= y + height;
-    }
+//    public boolean contains(int ballCenterX, int ballCenterY) {
+//        return ballCenterX >= x && ballCenterX <= x + width
+//                && ballCenterY >= y && ballCenterY <= y + height;
+//    }
 }

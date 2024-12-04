@@ -36,8 +36,9 @@ public class Ball extends Ellipse2D.Double {
         return y <= 0;
     }
 
-    public void bouncePaddle() {
+    public void bouncePaddle(Paddle paddle) {
         dy = -dy;
+        dx = (paddle.getCenterX() - this.getCenterX()) / (paddle.getWidth() / 2);
     }
 
     public void bounceWalls() {

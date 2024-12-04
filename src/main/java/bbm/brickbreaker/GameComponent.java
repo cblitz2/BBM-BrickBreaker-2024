@@ -6,19 +6,20 @@ import java.awt.*;
 public class GameComponent extends JComponent {
     private final Ball ball;
     private final Paddle paddle;
-    private Brick brick;
+    private final Simulation simulation;
 
 
-    public GameComponent(Ball ball, Paddle paddle, Brick brick) {
+    public GameComponent(Ball ball, Paddle paddle, Simulation simulation) {
         this.ball = ball;
         this.paddle = paddle;
-        this.brick = brick;
+        this.simulation = simulation;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        Brick brick = simulation.getBrick();
         if (!brick.isHit()) {
             g.setColor(Color.RED);
             g.fillRect(brick.x, brick.y, brick.width, brick.height);

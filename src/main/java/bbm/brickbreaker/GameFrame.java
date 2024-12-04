@@ -22,7 +22,7 @@ public class GameFrame extends JFrame {
         Simulation simulation = new Simulation(network, ball, paddle, brickFactory);
 
 
-        component = new GameComponent(ball, paddle, simulation.getBrick() );
+        component = new GameComponent(ball, paddle, simulation );
         component.setBounds(0, 0, getWidth(), getHeight());
 
         add(component);
