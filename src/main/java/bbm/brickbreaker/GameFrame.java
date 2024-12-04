@@ -7,6 +7,7 @@ import javax.swing.*;
 public class GameFrame extends JFrame {
     private final GameComponent component;
     private Timer gameTimer;
+    private JLabel score;
 
     public GameFrame(NeuralNetwork topNetwork) {
         setSize(800, 600);
@@ -21,8 +22,12 @@ public class GameFrame extends JFrame {
         NeuralNetwork network = new NeuralNetwork(topNetwork);
         Simulation simulation = new Simulation(network, ball, paddle, brickFactory);
 
+        score = new JLabel();
+        score.setText("Score: 0");
+        score.setBounds(getWidth() - 110, 10, 100, 30);
+        add(score);
 
-        component = new GameComponent(ball, paddle, simulation );
+        component = new GameComponent(ball, paddle, simulation);
         component.setBounds(0, 0, getWidth(), getHeight());
 
         add(component);
@@ -35,6 +40,7 @@ public class GameFrame extends JFrame {
     private void startGameLoop(Simulation simulation) {
         gameTimer = new Timer(4, e -> {
             simulation.advance();
+            score.setText("Score: " + simulation.getScore());
             component.repaint();
             if (simulation.isGameOver()) {
                 gameTimer.stop();

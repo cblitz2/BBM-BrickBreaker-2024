@@ -6,34 +6,34 @@ import java.util.Random;
 public class Simulation implements Comparable<Simulation> {
     private final NeuralNetwork network;
     private final Ball ball;
+    private final Paddle paddle;
     private final BrickFactory brickFactory;
     private Brick brick;
-    private final Paddle paddle;
     private int score;
     private boolean gameOver;
-
     private boolean hitPaddle;
     private boolean hitBrick;
+    private static final int PADDLE_STEP = 2;
 
     public Simulation(NeuralNetwork network, Ball ball, Paddle paddle,
                       BrickFactory brickFactory) {
         this.network = network;
         this.ball = ball;
         this.paddle = paddle;
-        this.gameOver = false;
         this.brickFactory = brickFactory;
-        Random rand = new Random();
-        ball.setPosition(rand.nextInt(0, 750), 225);
         brick = brickFactory.newBrick();
+        this.gameOver = false;
         hitPaddle = false;
         hitBrick = false;
+        Random rand = new Random();
+        ball.setPosition(rand.nextInt(0, 750), 225);
     }
 
     public boolean advance() {
         ball.move();
         movePaddle();
 
-        if (ball.hitsWall(800)) {
+        if (ball.hitsWall()) {
             ball.bounceWalls();
             if (hitPaddle) {
                 hitPaddle = false;
@@ -71,9 +71,10 @@ public class Simulation implements Comparable<Simulation> {
             }
         }
 
-        if (ball.getY() >= 600) {
+        if (ball.falls()) {
             gameOver = true;
         }
+
         return gameOver;
     }
 
@@ -87,9 +88,9 @@ public class Simulation implements Comparable<Simulation> {
         double[] output = network.guess(input);
 
         if (output[0] > output[1] && paddle.getX() > 0) {
-            paddle.setLocation((int) (paddle.getX() - 2), (int) paddle.getY());
+            paddle.setLocation((int) (paddle.getX() - PADDLE_STEP), (int) paddle.getY());
         } else if (output[1] > output[0] && paddle.getX() < 780) {
-            paddle.setLocation((int) (paddle.getX() + 2), (int) paddle.getY());
+            paddle.setLocation((int) (paddle.getX() + PADDLE_STEP), (int) paddle.getY());
         }
     }
 
@@ -100,7 +101,6 @@ public class Simulation implements Comparable<Simulation> {
     private void hitsBrick() {
         brick.setHit(true);
         this.brick = brickFactory.newBrick();
-        //System.out.println(brick.getX() + " " + brick.getY());
     }
 
     public int getScore() {
