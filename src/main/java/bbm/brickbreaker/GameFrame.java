@@ -18,15 +18,14 @@ public class GameFrame extends JFrame {
         Ball ball = new Ball(20, 20, 390, 500);
         Paddle paddle = new Paddle(350, 520, 100, 20);
         BrickFactory brickFactory = new BrickFactory(getWidth(), getHeight(), 40, 25);
-
         NeuralNetwork network = new NeuralNetwork(topNetwork);
-        Simulation simulation = new Simulation(network, ball, paddle, brickFactory);
 
         score = new JLabel();
         score.setText("Score: 0");
         score.setBounds(getWidth() - 110, 10, 100, 30);
         add(score);
 
+        Simulation simulation = new Simulation(network, ball, paddle, brickFactory);
         component = new GameComponent(ball, paddle, simulation);
         component.setBounds(0, 0, getWidth(), getHeight());
 

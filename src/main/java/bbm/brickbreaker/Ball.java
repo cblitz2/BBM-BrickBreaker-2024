@@ -35,6 +35,7 @@ public class Ball extends Ellipse2D.Double {
     public boolean hitsTop() {
         return y <= 0;
     }
+
     public boolean falls() {
         return y >= 600;
     }
