@@ -24,6 +24,10 @@ public class Ball extends Ellipse2D.Double {
         return paddle.getBounds().intersects(this.getBounds());
     }
 
+    public boolean collidesBrick (Brick brick) {
+        return brick.getBounds().intersects(this.getBounds());
+    }
+
     public boolean hitsWall(int frameWidth) {
         return x <= 0 || x + width >= frameWidth;
     }

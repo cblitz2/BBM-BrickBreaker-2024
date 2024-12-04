@@ -2,20 +2,30 @@ package bbm.brickbreaker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class GameComponent extends JComponent {
     private final Ball ball;
     private final Paddle paddle;
+    private Brick brick;
 
-    public GameComponent(Ball ball, Paddle paddle) {
+
+    public GameComponent(Ball ball, Paddle paddle, Brick brick) {
         this.ball = ball;
         this.paddle = paddle;
+        this.brick = brick;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        if (!brick.isHit()) {
+            g.setColor(Color.RED);
+            g.fillRect(brick.x, brick.y, brick.width, brick.height);
+
+            g.setColor(Color.BLACK);
+            g.drawRect(brick.x, brick.y, brick.width, brick.height);
+        }
 
         g.setColor(Color.DARK_GRAY);
         g.fillOval((int) ball.getX(), (int) ball.getY(), 20, 20);

@@ -4,24 +4,29 @@ import basicneuralnetwork.NeuralNetwork;
 import java.util.Random;
 
 public class Simulation implements Comparable<Simulation> {
-    private NeuralNetwork network;
-    private Ball ball;
-    private Paddle paddle;
-    private int width;
-    private int height;
+    private final NeuralNetwork network;
+    private final Ball ball;
+    private final BrickFactory brickFactory;
+    private Brick brick;
+    private final Paddle paddle;
     private int score;
     private boolean gameOver;
-    private Random rand = new Random();
+
+    private boolean hitPaddle;
+    private boolean hitBrick;
 
     public Simulation(NeuralNetwork network, Ball ball, Paddle paddle,
-                      int width, int height) {
+                      BrickFactory brickFactory) {
         this.network = network;
         this.ball = ball;
         this.paddle = paddle;
-        this.width = width;
-        this.height = height;
         this.gameOver = false;
+        this.brickFactory = brickFactory;
+        Random rand = new Random();
         ball.setPosition(rand.nextInt(0, 750), 225);
+        brick = brickFactory.newBrick();
+        hitPaddle = false;
+        hitBrick = false;
     }
 
     public boolean advance() {
@@ -38,7 +43,18 @@ public class Simulation implements Comparable<Simulation> {
 
         if (ball.collidesPaddle(paddle)) {
             ball.bouncePaddle();
-            score++;
+            hitPaddle = true;
+            if (hitBrick) {
+               score++;
+            }
+        }
+
+        if (ball.collidesBrick(brick)) {
+            hitsBrick();
+            hitBrick = true;
+            if (hitPaddle) {
+                score++;
+            }
         }
 
         if (ball.getY() >= 600) {
@@ -48,9 +64,11 @@ public class Simulation implements Comparable<Simulation> {
     }
 
     private void movePaddle() {
-        double[] input = new double[2];
+        double[] input = new double[4];
         input[0] = ball.getCenterX();
         input[1] = paddle.getCenterX();
+        input[2] = brick.getCenterX();
+        input[3] = brick.getCenterY();
 
         double[] output = network.guess(input);
 
@@ -59,6 +77,15 @@ public class Simulation implements Comparable<Simulation> {
         } else if (output[1] > output[0] && paddle.getX() < 780) {
             paddle.setLocation((int) (paddle.getX() + 3), (int) paddle.getY());
         }
+    }
+
+    public Brick getBrick() {
+        return brick;
+    }
+
+    private void hitsBrick() {
+        brick.setHit(true);
+        this.brick = brickFactory.newBrick();
     }
 
     public int getScore() {
