@@ -57,8 +57,8 @@ public class Simulation implements Comparable<Simulation> {
             ball.bouncePaddle(paddle);
             hitPaddle = true;
             if (hitBrick) {
-               score++;
-               hitBrick = false;
+                score++;
+                hitBrick = false;
             }
         }
 
@@ -99,6 +99,7 @@ public class Simulation implements Comparable<Simulation> {
     }
 
     private void hitsBrick() {
+        ball.hitBrick();
         brick.setHit(true);
         this.brick = brickFactory.newBrick();
     }

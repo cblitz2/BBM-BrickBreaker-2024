@@ -52,4 +52,9 @@ public class Ball extends Ellipse2D.Double {
     public void bounceTop() {
         dy = -dy;
     }
+
+    public void hitBrick() {
+        dy = -dy;
+        dx = -dx;
+    }
 }
