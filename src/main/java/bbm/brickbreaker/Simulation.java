@@ -13,7 +13,7 @@ public class Simulation implements Comparable<Simulation> {
     private boolean gameOver;
     private boolean hitPaddle;
     private boolean hitBrick;
-    private static final int PADDLE_STEP = 2;
+    private static final int PADDLE_STEP = 4;
 
     public Simulation(NeuralNetwork network, Ball ball, Paddle paddle,
                       BrickFactory brickFactory) {
@@ -45,12 +45,6 @@ public class Simulation implements Comparable<Simulation> {
 
         if (ball.hitsTop()) {
             ball.bounceTop();
-            if (hitPaddle) {
-                hitPaddle = false;
-            }
-            if (hitBrick) {
-                hitBrick = false;
-            }
         }
 
         if (ball.collidesPaddle(paddle)) {

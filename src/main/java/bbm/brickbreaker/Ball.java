@@ -3,8 +3,8 @@ package bbm.brickbreaker;
 import java.awt.geom.Ellipse2D;
 
 public class Ball extends Ellipse2D.Double {
-    private double dx = 1.5;
-    private double dy = -1;
+    private double dx = 2.5;
+    private double dy = -2;
 
     public Ball(int width, int height, double x, double y) {
         super(x, y, width, height);
