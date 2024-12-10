@@ -3,8 +3,8 @@ package bbm.brickbreaker;
 import java.awt.geom.Ellipse2D;
 
 public class Ball extends Ellipse2D.Double {
-    private double dx = 1.5;
-    private double dy = -1;
+    private double dx = 2.5;
+    private double dy = -2;
 
     public Ball(int width, int height, double x, double y) {
         super(x, y, width, height);
@@ -24,16 +24,25 @@ public class Ball extends Ellipse2D.Double {
         return paddle.getBounds().intersects(this.getBounds());
     }
 
-    public boolean hitsWall(int frameWidth) {
-        return x <= 0 || x + width >= frameWidth;
+    public boolean collidesBrick(Brick brick) {
+        return brick.getBounds().intersects(this.getBounds());
+    }
+
+    public boolean hitsWall() {
+        return x <= 0 || x + width >= 800;
     }
 
     public boolean hitsTop() {
         return y <= 0;
     }
 
-    public void bouncePaddle() {
+    public boolean falls() {
+        return y >= 600;
+    }
+
+    public void bouncePaddle(Paddle paddle) {
         dy = -dy;
+        dx = (paddle.getCenterX() - this.getCenterX()) / (paddle.getWidth() / 2);
     }
 
     public void bounceWalls() {
@@ -41,6 +50,10 @@ public class Ball extends Ellipse2D.Double {
     }
 
     public void bounceTop() {
+        dy = -dy;
+    }
+
+    public void hitBrick() {
         dy = -dy;
     }
 }
