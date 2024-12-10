@@ -35,12 +35,6 @@ public class Simulation implements Comparable<Simulation> {
 
         if (ball.hitsWall()) {
             ball.bounceWalls();
-            if (hitPaddle) {
-                hitPaddle = false;
-            }
-            if (hitBrick) {
-                hitBrick = false;
-            }
         }
 
         if (ball.hitsTop()) {
