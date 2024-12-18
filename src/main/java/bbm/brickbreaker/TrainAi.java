@@ -1,5 +1,6 @@
 package bbm.brickbreaker;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -82,6 +83,10 @@ public class TrainAi {
         BrickFactory brickFactory = new BrickFactory(800, 600, 40, 25);
         TrainAi train = new TrainAi(ball, paddle, brickFactory);
         train.generate();
-        writeToFile(train.getTopNetwork(), "ai");
+        try {
+            writeToFile(train.getTopNetwork(), "ai");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
