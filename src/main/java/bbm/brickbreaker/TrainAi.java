@@ -8,24 +8,26 @@ import basicneuralnetwork.NeuralNetwork;
 import static basicneuralnetwork.utilities.FileReaderAndWriter.writeToFile;
 
 public class TrainAi {
-    private static final int NUM_GENERATIONS = 5;
+    private static final int NUM_GENERATIONS = 100;
     private static final int NUM_TOP_NETWORKS = 10;
     private static final int GENERATION_SIZE = 1000;
     private static final int NUM_ROUNDS = 10000;
     private final Ball ball;
     private final Paddle paddle;
+    private final BrickFactory brickFactory;
     private NeuralNetwork topNetwork;
     private final ArrayList<NeuralNetwork> allNetworks = new ArrayList<>();
     private final List<NeuralNetwork> top10 = new ArrayList<>();
 
-    public TrainAi(Ball ball, Paddle paddle) {
+    public TrainAi(Ball ball, Paddle paddle, BrickFactory brickFactory) {
         this.ball = ball;
         this.paddle = paddle;
+        this.brickFactory = brickFactory;
     }
 
     public void generate() {
         for (int i = 0; i < GENERATION_SIZE; i++) {
-            NeuralNetwork network = new NeuralNetwork(2, 2, 4, 2);
+            NeuralNetwork network = new NeuralNetwork(4, 2, 4, 2);
             allNetworks.add(network);
         }
 
@@ -42,7 +44,7 @@ public class TrainAi {
         List<Simulation> allSimulations = new ArrayList<>();
 
         for (NeuralNetwork neuralNetwork : allNetworks) {
-            Simulation simulation = new Simulation(neuralNetwork, ball, paddle, 800, 600);
+            Simulation simulation = new Simulation(neuralNetwork, ball, paddle, brickFactory);
             for (int i = 0; i < NUM_ROUNDS; i++) {
                 boolean gameOver = simulation.advance();
                 if (gameOver) {
@@ -77,7 +79,8 @@ public class TrainAi {
     public static void main(String[] args) {
         Paddle paddle = new Paddle(350, 520, 100, 20);
         Ball ball = new Ball(10, 10, paddle.getX() + 40, paddle.getY() - 20);
-        TrainAi train = new TrainAi(ball, paddle);
+        BrickFactory brickFactory = new BrickFactory(800, 600, 40, 25);
+        TrainAi train = new TrainAi(ball, paddle, brickFactory);
         train.generate();
         writeToFile(train.getTopNetwork(), "ai");
     }
